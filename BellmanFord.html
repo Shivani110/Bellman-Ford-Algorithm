@@ -1,0 +1,38 @@
+<html>
+<body>
+<script>
+function Bellman(GRAPH, Vertex, Edge, source)
+{
+	var Dis = Array(Vertex).fill(100000);
+	Dis[source] = 0;
+	for (var n = 0; n < Vertex - 1; n++)
+	{
+		for (var m = 0; m < Edge; m++)
+		{
+			if ((Dis[GRAPH[m][0]] + GRAPH[m][2]) < Dis[GRAPH[m][1]])
+				Dis[GRAPH[m][1]] = Dis[GRAPH[m][0]] + GRAPH[m][2];
+		}
+	}
+	for (var n = 0; n < Edge; n++)
+	{
+		var a = GRAPH[n][0];
+		var b = GRAPH[n][1];
+		var wt = GRAPH[n][2];
+		if ((Dis[a] != 100000) &&
+				(Dis[a] + wt < Dis[b]))
+			document.write("Negative weight cycle is present....");
+	}
+
+	document.write("Vertex &emsp; Distance from Source<br>");
+	for (var n = 0; n < Vertex; n++)
+		document.write(n + " " + Dis[n] +  "<br>");
+}
+var Vertex = 4;
+var Edge = 6;
+var GRAPH = [[ 0, -1, 1 ], [ 0, 2, 4 ],
+				[ 1, 1, 3 ], [ 1, 2, 2 ],
+				[ 3, 2, 1 ], [ 3, 1, -2 ]];
+Bellman(GRAPH, Vertex, Edge, 0);
+</script>
+</body>
+</html>
